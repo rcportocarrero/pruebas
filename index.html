@@ -22,7 +22,8 @@
 
         function onDeviceReady(){
             console.log("device is ready");
-            db = window.sqlitePlugin.openDatabase({name: "bdciudades.db", createFromLocation: 1});
+            //db = window.sqlitePlugin.openDatabase({name: "bdciudades.db", createFromLocation: 1});
+            db = window.sqlitePlugin.openDatabase({name: "ardiles.db", createFromLocation: 1});
             if(db!=null){
                 listarTodasCiudades();
             }
@@ -36,14 +37,15 @@
         }
 
         function listar(tx){
-            tx.executeSql("Select * from ciudad",[],function(tx,result){
+            //tx.executeSql("Select * from ciudad",[],function(tx,result){
+                tx.executeSql("Select * from clientes limit 100",[],function(tx,result){
                 var nciu=result.rows.length;
                 var html="";
                 console.log("num ciudades="+nciu);
                 if(nciu>0){
                     for(var i=0; i<nciu; i++){
                         var fila=result.rows.item(i);
-                        html+="<div sytle='background-color: yellow; font-weight:bold;'>"+fila['descripcion']+"</div>";
+                        html+="<div sytle='background-color: yellow; font-weight:bold;'>"+fila['Descripcion']+"</div>";
                     }
                     $('#contenido').html(html);
                 }
